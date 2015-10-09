@@ -1,3 +1,5 @@
+'use strict';
+
 // Code goes here
 var React = require('react');
 
@@ -10,7 +12,7 @@ var Button = React.createClass({
   render: function() {
     return (
       <button onClick={this.localHandleClick}>+{this.props.increment}</button>
-    )
+    );
   }
 });
 
@@ -28,7 +30,9 @@ var Main = React.createClass({
   },
 
   handleClick: function(increment) {
-    this.setState({counter: this.state.counter+increment});
+    this.setState(
+      {counter: this.state.counter + increment}
+    );
   },
 
   render: function() {
@@ -41,9 +45,9 @@ var Main = React.createClass({
         // passing the state to children
         <Result localCounter={this.state.counter}/>
       </div>
-      )
+      );
   }
-})
+});
 // React.render(<Main />, document.getElementById('root'));
 
 module.exports = Main;

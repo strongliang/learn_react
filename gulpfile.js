@@ -7,21 +7,21 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var source = require('vinyl-source-stream');
 var concat = require('gulp-concat'); //concatenates files
+var lint = require('gulp-eslint');
 
 var config = {
     port: 9005,
     devBaseUrl: 'http://localhost',
     paths: {
-        html: './src/*html',
+        html: 'src/*html',
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
-            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
-            // './src/*css'
+            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+            'src/*css'
         ],
-        // css: './src/*css',
-        js: './src/**/*js',
-        indexJs: './src/index.js',
-        dist: './dist'
+        js: 'src/**/*js',
+        indexJs: 'src/index.js',
+        dist: 'dist'
     }
 }
 
@@ -64,11 +64,19 @@ gulp.task('js', function() {
         .pipe(connect.reload());
 });
 
+gulp.task('lint', function() {
+    return gulp.src(config.paths.js)
+        .pipe(lint())
+        .pipe(lint({config: 'eslint.config.json'}))
+        .pipe(lint.format());
+});
+
 gulp.task('watch', function() {
-    gulp.watch('src/*', ['html', 'js', 'css']);
+    gulp.watch(config.paths.html, ['html']);
+    gulp.watch(config.paths.js, ['js', 'lint']);
+    gulp.watch(config.paths.css, ['css']);
     watch(['dist/**']).pipe(connect.reload());
 });
 
 // include css and js here so that they get loaded the first time
-gulp.task('default', ['html', 'css', 'js', 'open', 'watch']);  // seems that open before watch is better
-
+gulp.task('default', ['html', 'css', 'js', 'lint', 'open', 'watch']);  // seems that open before watch is better
