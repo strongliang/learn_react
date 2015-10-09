@@ -1,5 +1,5 @@
-// var React = require('react');
-// var Main = require('./main');
+var React = require('react');
+var Main = require('./main');
 
 // function blah() {
 //     console.log('blah');
