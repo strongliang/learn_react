@@ -8,6 +8,8 @@ var config = {
     devBaseUrl: 'http://localhost',
     paths: {
         html: './src/*html',
+        css: './src/*css',
+        js: './src/*js',
         dist: './dist'
     }
 }
@@ -35,5 +37,17 @@ gulp.task('html', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('default', ['html', 'open']);
+gulp.task('css', function() {
+    gulp.src(config.paths.css)
+        .pipe(gulp.dest(config.paths.dist))
+        .pipe(connect.reload());
+});
+
+gulp.task('js', function() {
+    gulp.src(config.paths.js)
+        .pipe(gulp.dest(config.paths.dist))
+        .pipe(connect.reload());
+});
+
+gulp.task('default', ['html', 'js', 'css', 'open']);
 
