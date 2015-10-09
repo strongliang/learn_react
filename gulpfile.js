@@ -3,6 +3,10 @@ var connect = require('gulp-connect');  // runs a local dev server
 var open = require('gulp-open');  // open a url in a web browser
 var watch = require('gulp-watch');
 
+var browserify = require('browserify');
+var reactify = require('reactify');
+var source = require('vinyl-source-stream');
+
 
 var config = {
     port: 9005,
@@ -10,7 +14,8 @@ var config = {
     paths: {
         html: './src/*html',
         css: './src/*css',
-        js: './src/*js',
+        js: './src/**/*js',
+        indexJs: './src/index.js',
         dist: './dist'
     }
 }
@@ -43,8 +48,12 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-    gulp.src(config.paths.js)
-        .pipe(gulp.dest(config.paths.dist))
+    browserify(config.paths.indexJs)
+        .transform(reactify)
+        .bundle()  // put everything in one js
+        .on('error', console.error.bind(console))  // bind error to the console object?
+        .pipe(source('bundle.js'))  // give the bundle a name
+        .pipe(gulp.dest(config.paths.dist + '/scripts'))
         .pipe(connect.reload());
 });
 
@@ -52,5 +61,5 @@ gulp.task('watch', function() {
     gulp.watch('src/*', ['html', 'js', 'css']);
     watch(['dist/**']).pipe(connect.reload());
 });
-gulp.task('default', ['watch', 'open']);
+gulp.task('default', ['open', 'watch']);  // seems that open before watch is better
 
