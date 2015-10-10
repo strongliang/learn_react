@@ -55,7 +55,8 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-    browserify(config.paths.indexJs)
+    browserify(config.paths.indexJs)  // TODO: how does this work? not all js?
+    // browserify(config.paths.js)  // TODO: how does this work? not all js?
         .transform(reactify)
         .bundle()  // put everything in one js
         .on('error', console.error.bind(console))  // bind error to the console object?
