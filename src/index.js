@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Home = require('./components/home-page');
+var Main = require('./components/main');
 
 
 // function blah() {
@@ -9,9 +10,9 @@ var Home = require('./components/home-page');
 //     return 'blah';
 // }
 
-// React.render(<Main />, document.getElementById('root'));
+React.render(<Main />, document.getElementById('root'));
 
 // var App = console.log('hello world from browserify!');
 
 // module.exports = App;
-React.render(<Home />, document.getElementById('root'));
+// React.render(<Home />, document.getElementById('root'));
