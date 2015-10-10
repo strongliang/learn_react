@@ -48,6 +48,5 @@ var Main = React.createClass({
       );
   }
 });
-// React.render(<Main />, document.getElementById('root'));
 
 module.exports = Main;
