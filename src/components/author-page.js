@@ -2,7 +2,11 @@
 
 var React = require('react');
 var AuthorApi = require('../mock_api/author-api');
+var AuthorList = require('./author-list');
 
+// smart component that deals with APIs, as opposed to author-list that just
+// does the rendering with data
+// the separation keeps the logic compact and the rendering all in one place
 var Authors = React.createClass({
     getInitialState: function() {
         return {
@@ -11,31 +15,14 @@ var Authors = React.createClass({
     },
 
     componentWillMount: function() {
+        // pulls data from API.
         this.setState({ authors: AuthorApi.getAllAuthors() });
     },
 
     render: function() {
-        var createAuthorRow = function(author) {
-            return (
-                <tr key={author.id}>
-                    <td>{author.id}</td>
-                    <td>{author.firstName} {author.lastName}</td>
-                </tr>
-            );
-        };
-
         return (
             <div>
-                <h1>Authors</h1>
-                <table className="table">
-                    <thead>
-                        <th>ID</th>
-                        <th>Name</th>
-                    </thead>
-                    <tbody>
-                        {this.state.authors.map(createAuthorRow, this)}
-                    </tbody>
-                </table>
+                <AuthorList authors={this.state.authors} />
             </div>
         );
     }
