@@ -7,16 +7,18 @@ var AuthorList = require('./author-list');
 // smart component that deals with APIs, as opposed to author-list that just
 // does the rendering with data
 // the separation keeps the logic compact and the rendering all in one place
-var Authors = React.createClass({
+var AuthorPage = React.createClass({
     getInitialState: function() {
         return {
             authors: []
         };
     },
 
-    componentWillMount: function() {
-        // pulls data from API.
-        this.setState({ authors: AuthorApi.getAllAuthors() });
+    componentDidMount: function() {
+        if (this.isMounted()) { // double check
+            // pulls data from API.
+            this.setState({ authors: AuthorApi.getAllAuthors() });
+        }
     },
 
     render: function() {
@@ -28,5 +30,5 @@ var Authors = React.createClass({
     }
 });
 
-module.exports = Authors;
+module.exports = AuthorPage;
 
