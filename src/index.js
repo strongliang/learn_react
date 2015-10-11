@@ -1,21 +1,10 @@
 'use strict';
 
 var React = require('react');
-var Home = require('./components/home-page');
-var Main = require('./components/main');
-var Authors = require('./components/author-page');
+var Router = require('react-router');
+var routes = require('./routes');
 
-// place holder for the two components
-var App = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <Home />
-                <Main />
-                <Authors />
-            </div>
-        );
-    }  // no semicolon here
+Router.run(routes, function(Handler) {
+    React.render(<Handler />, document.getElementById('root'));
 });
 
-React.render(<App />, document.getElementById('root'));

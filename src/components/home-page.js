@@ -6,7 +6,7 @@ var Home = React.createClass({
     render: function() {
         return (
             <div className="jumbotron">
-                <h1>Pluralsight Admin</h1>
+                <h1>Placeholder Text</h1>
             </div>
         );
     }

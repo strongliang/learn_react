@@ -24,7 +24,7 @@ var Result = React.createClass({
   }
 });
 
-var Main = React.createClass({
+var ClickCounterPage = React.createClass({
   getInitialState: function() {
     return {counter: 0};
   },
@@ -42,11 +42,10 @@ var Main = React.createClass({
         <Button localHandleClick={this.handleClick} increment={2}/>
         <Button localHandleClick={this.handleClick} increment={5}/>
         <Button localHandleClick={this.handleClick} increment={10}/>
-        // passing the state to children
         <Result localCounter={this.state.counter}/>
       </div>
       );
   }
 });
 
-module.exports = Main;
+module.exports = ClickCounterPage;
