@@ -19,7 +19,6 @@ var AuthorList = React.createClass({
 
         return (
             <div>
-                <h1>Authors</h1>
                 <table className="table">
                     <thead>
                         <th>ID</th>
