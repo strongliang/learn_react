@@ -11,16 +11,19 @@ var Link = require('react-router').Link;
 var AuthorPage = React.createClass({
     statics: {  // TIP: statics, not static
         willTransitionTo: function(transition, params, query, callback) {
-            if (!confirm('are you sure? it\'s really boring')) {
-                transition.abort();
-            } else {
-                callback();  // make the transition
-            }
+            console.log('welcome to the author page');
+            callback();
+            // if (!confirm('are you sure? it\'s really boring')) {
+            //     transition.abort();
+            // } else {
+            //     callback();  // make the transition
+            // }
         },
         willTransitionFrom: function(transition, component) {
-            if (!confirm('are you sure? it\'s really exciting')) {
-                transition.abort();
-            }
+            console.log('you\'re leaving author page');
+            // if (!confirm('are you sure? it\'s really exciting')) {
+            //     transition.abort();
+            // }
         }
     },
 
