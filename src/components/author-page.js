@@ -7,6 +7,9 @@ var Link = require('react-router').Link;
 // flux way to use author store and action
 // var AuthorActions = require('../actions/author-actions');
 var AuthorStore = require('../stores/author-store');
+var AuthorActions = require('../actions/author-actions');
+var ActionTypes = require('../constants/action-types');
+var toastr = require('toastr');
 
 // smart component that deals with APIs, as opposed to author-list that just
 // does the rendering with data
@@ -36,12 +39,33 @@ var AuthorPage = React.createClass({
         };
     },
 
+    componentWillMount: function() {
+        AuthorStore.addChangeListener(this._onChange);
+    },
+
+    componentWillUnmount: function() {
+        AuthorStore.removeChangeListener(this._onChange);
+    },
+
+    _onChange: function() {
+        this.setState({ authors: AuthorStore.getAllAuthors() });
+    },
+
+    deleteAuthor: function(id, event) {
+        event.preventDefault();  // prevent the link from being clicked
+        AuthorActions.deleteAuthor(id);
+        toastr.success('Author Deleted');
+    },
+
     render: function() {
         return (
             <div>
                 <h1>Authors</h1>
                 <Link to='add-author' className='btn btn-default'>Add Author</Link>
-                <AuthorList authors={this.state.authors} />
+                <AuthorList
+                    authors={this.state.authors}
+                    deleteAuthor={this.deleteAuthor}
+                     />
             </div>
         );
     }
