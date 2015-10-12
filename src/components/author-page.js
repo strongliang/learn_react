@@ -1,9 +1,12 @@
 'use strict';
 
 var React = require('react');
-var AuthorApi = require('../mock_api/author-api');
+// var AuthorApi = require('../mock_api/author-api');
 var AuthorList = require('./author-list');
 var Link = require('react-router').Link;
+// flux way to use author store and action
+// var AuthorActions = require('../actions/author-actions');
+var AuthorStore = require('../stores/author-store');
 
 // smart component that deals with APIs, as opposed to author-list that just
 // does the rendering with data
@@ -29,15 +32,8 @@ var AuthorPage = React.createClass({
 
     getInitialState: function() {
         return {
-            authors: []
+            authors: AuthorStore.getAllAuthors()
         };
-    },
-
-    componentDidMount: function() {
-        if (this.isMounted()) { // double check
-            // pulls data from API.
-            this.setState({ authors: AuthorApi.getAllAuthors() });
-        }
     },
 
     render: function() {

@@ -2,9 +2,12 @@
 
 var React = require('react');
 var AuthorForm = require('./author-form');
-var AuthorApi = require('../mock_api/author-api');
+// var AuthorApi = require('../mock_api/author-api');  // direct API call
 var Router = require('react-router');
 var toastr = require('toastr');
+// flux way to use author store and action
+var AuthorActions = require('../actions/author-actions');
+var AuthorStore = require('../stores/author-store');
 
 var ManageAuthorPage = React.createClass({
     mixins: [
@@ -54,7 +57,8 @@ var ManageAuthorPage = React.createClass({
             return;
         }
         console.log(this.state.author);
-        AuthorApi.saveAuthor(this.state.author);
+        AuthorActions.createAuthor(this.state.author);  // using the store
+        // AuthorApi.saveAuthor(this.state.author);  // direct API call
         toastr.success('Author saved.');
         this.transitionTo('authors');
     },
