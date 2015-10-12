@@ -4,6 +4,7 @@ var React = require('react');
 var AuthorForm = require('./author-form');
 var AuthorApi = require('../mock_api/author-api');
 var Router = require('react-router');
+var toastr = require('toastr');
 
 var ManageAuthorPage = React.createClass({
     mixins: [
@@ -31,6 +32,7 @@ var ManageAuthorPage = React.createClass({
         event.preventDefault();  // disable submit
         console.log(this.state.author);
         AuthorApi.saveAuthor(this.state.author);
+        toastr.success('Author saved.');
         this.transitionTo('authors');
     },
 
