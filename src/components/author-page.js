@@ -3,6 +3,7 @@
 var React = require('react');
 var AuthorApi = require('../mock_api/author-api');
 var AuthorList = require('./author-list');
+var Link = require('react-router').Link;
 
 // smart component that deals with APIs, as opposed to author-list that just
 // does the rendering with data
@@ -39,6 +40,8 @@ var AuthorPage = React.createClass({
     render: function() {
         return (
             <div>
+                <h1>Authors</h1>
+                <Link to='add-author' className='btn btn-default'>Add Author</Link>
                 <AuthorList authors={this.state.authors} />
             </div>
         );
