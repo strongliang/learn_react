@@ -17,7 +17,8 @@ var ManageAuthorPage = React.createClass({
                 id: '',
                 firstName: '',
                 lastName: ''
-            }
+            },
+            errors: {}
         };
     },
 
@@ -28,8 +29,30 @@ var ManageAuthorPage = React.createClass({
         return this.setState({author: this.state.author});
     },
 
+    authorFormIsValid: function() {
+        var formIsValid = true;
+        this.state.errors = {};  // clear any previous errors
+
+        if (this.state.author.firstName.length < 3) {
+            this.state.errors.firstName = 'first name must be at least 3 chars';
+            formIsValid = false;
+        }
+
+        if (this.state.author.lastName.length < 3) {
+            this.state.errors.lastName = 'last name must be at least 3 chars';
+            formIsValid = false;
+        }
+
+        this.setState({errors: this.state.errors});
+        return formIsValid;
+
+    },
+
     saveAuthor: function(event) {
         event.preventDefault();  // disable submit
+        if (!this.authorFormIsValid()) {
+            return;
+        }
         console.log(this.state.author);
         AuthorApi.saveAuthor(this.state.author);
         toastr.success('Author saved.');
@@ -42,6 +65,7 @@ var ManageAuthorPage = React.createClass({
                 <AuthorForm
                     author={this.state.author}
                     onChange={this.setAuthorState}
+                    errors={this.state.errors}
                     onSave={this.saveAuthor}
                     />
             </div>

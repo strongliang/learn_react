@@ -14,12 +14,14 @@ var AuthorForm = React.createClass({
                     name='firstName'
                     label='First Name'
                     onChange={this.props.onChange}
+                    error={this.props.errors.firstName}
                     value={this.props.author.firstName} />
 
                 <Input
                     name='lastName'
                     label='Last Name'
                     onChange={this.props.onChange}
+                    error={this.props.errors.lastName}
                     value={this.props.author.lastName} />
                 <input
                     type='submit'
@@ -28,6 +30,8 @@ var AuthorForm = React.createClass({
                     className='btn btn-default' />
             </form>
         );
+                    // error={this.props.errors.firstName}
+                    // error={this.props.errors.lastName}
     }
 });
 
