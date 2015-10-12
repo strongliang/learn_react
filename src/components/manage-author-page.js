@@ -6,6 +6,10 @@ var AuthorApi = require('../mock_api/author-api');
 var Router = require('react-router');
 
 var ManageAuthorPage = React.createClass({
+    mixins: [
+        Router.Navigation
+    ],
+
     getInitialState: function() {
         return {
             author: {
@@ -27,6 +31,7 @@ var ManageAuthorPage = React.createClass({
         event.preventDefault();  // disable submit
         console.log(this.state.author);
         AuthorApi.saveAuthor(this.state.author);
+        this.transitionTo('authors');
     },
 
     render: function() {
