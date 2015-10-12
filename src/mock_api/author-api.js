@@ -6,6 +6,7 @@ var _ = require('lodash');
 
 //This would be performed on the server in a real app. Just stubbing in.
 var _generateId = function(author) {
+    console.log('genId for author' + author.firstName + author.lastName);
     return author.firstName.toLowerCase() + '-' + author.lastName.toLowerCase();
 };
 

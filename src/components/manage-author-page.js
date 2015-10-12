@@ -2,14 +2,16 @@
 
 var React = require('react');
 var AuthorForm = require('./author-form');
+var AuthorApi = require('../mock_api/author-api');
+var Router = require('react-router');
 
 var ManageAuthorPage = React.createClass({
     getInitialState: function() {
         return {
             author: {
-                id: 'foo-bar',
-                firstName: 'foo',
-                lastName: 'bar'
+                id: '',
+                firstName: '',
+                lastName: ''
             }
         };
     },
@@ -21,12 +23,19 @@ var ManageAuthorPage = React.createClass({
         return this.setState({author: this.state.author});
     },
 
+    saveAuthor: function(event) {
+        event.preventDefault();  // disable submit
+        console.log(this.state.author);
+        AuthorApi.saveAuthor(this.state.author);
+    },
+
     render: function() {
         return (
             <div>
                 <AuthorForm
                     author={this.state.author}
                     onChange={this.setAuthorState}
+                    onSave={this.saveAuthor}
                     />
             </div>
         );
