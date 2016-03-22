@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
@@ -9,10 +9,11 @@ var NotFoundPage = React.createClass({
         return (
             <div>
                 <h1>Page Not Found</h1>
-                <p><a href='#'>Back to Home</a></p>
+                <p><Link to='app'>Back to Home</Link></p>
             </div>
         );
                 //FIXME: cannot put this link here, not sure why
+                // ANSWER: I was require('React') instead of 'react'
                 // <p><Link to='app'>Back to Home</Link></p>
                 // the old way still works here
                 // <p><a href='#'>Back to Home</a></p>
