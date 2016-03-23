@@ -4,8 +4,11 @@ var path = require('path');
 var express = require('express');
 
 var app = express();
-app.set('views', path.join(__dirname, './'));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
+// app.set('views', path.join(__dirname, './'));
 
 app.get('/', function handler(req, res) {
     res.render('test.ejs', {});
 }) .listen(7777);
+
+module.exports = app;
