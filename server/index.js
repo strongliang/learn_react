@@ -5,7 +5,6 @@ var express = require('express');
 
 var app = express();
 app.use(express.static(path.join(__dirname, '..', 'dist')));
-// app.set('views', path.join(__dirname, './'));
 
 app.get('/', function handler(req, res) {
     res.render('test.ejs', {});
