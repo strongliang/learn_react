@@ -13,6 +13,7 @@ var routes = (
         <DefaultRoute handler={require('./components/home-page')} />
         <Route name='click-counter' path='click' handler={require('./components/click-counter-page')} />
         <Route name='authors' path='authors' handler={require('./components/author-page')} />
+        <Route name='usage' path='usage' handler={require('./components/usage-page')} />
         <Route name='add-author' path='add-author' handler={require('./components/manage-author-page')} />
         <Route name='edit-author' path='author/:id' handler={require('./components/manage-author-page')} />
         <NotFoundRoute handler={require('./components/not-found-page')} />
