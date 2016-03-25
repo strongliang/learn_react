@@ -58,8 +58,8 @@ gulp.task('js', function() {
         .bundle()
         .on('error', console.error.bind(console))
         .pipe(source('bundle.js'))
-        .pipe(gulp.dest(config.paths.dist + '/scripts'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(config.paths.dist + '/scripts'));
+        // .pipe(connect.reload());
 });
 
 gulp.task('css', function() {
@@ -86,18 +86,22 @@ gulp.task('lint', function() {
         .pipe(lint.format());
 });
 
+var started = false;
 gulp.task('watch', function() {
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.js, ['js', 'lint']);
-    watch(['dist/**']).pipe(connect.reload());
+    // gulp.watch(config.paths.serverJs, ['serve'])
+    // watch(['dist/**']).pipe(connect.reload());
 });
 
-gulp.task('serve', ['js'], function (cb) {
+gulp.task('serve', function (cb) {
 
     var started = false;
 
     return nodemon({
-        script: config.paths.serverJs
+        script: config.paths.serverJs,
+        // ext: 'js',  // watch all js files
+        // tasks: ['js']
     }).on('start', function () {
         if (!started) {
             cb();

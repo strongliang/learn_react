@@ -11,8 +11,9 @@ var UsageApi = {
                 if (err || resp.statusCode !== 200) {
                     return callback(err);
                 }
-                console.log(body);
-                callback(null, body);
+                // console.log(body);
+                console.log(JSON.parse(body));
+                callback(null, JSON.parse(body));
             });
 
     }

@@ -1,13 +1,19 @@
+// usage page controller
 'use strict';
-// controller
 
 var React = require('react');
+var _ = require('lodash');
 var UsageStore = require('../stores/usage-store');
 
 var UsagePage = React.createClass({
     getInitialState: function getInitialState() {
+        // console.log(UsageStore.getUsage());
+        // console.log('lol', _.keys(UsageStore.getUsage()));
+        var usage = UsageStore.getUsage();
+        console.log('lol', _.keys(usage), _.values(usage));
         return {
-            usage: UsageStore.getUsage()
+            usage: usage
+            // usage: usage
         };
 
     },
@@ -22,18 +28,31 @@ var UsagePage = React.createClass({
 
     _onChange: function() {
         this.setState({ usage: UsageStore.getUsage() });
+        // this.setState({ usage: {1: 2} });
     },
 
-    getUsage: function getUsage() {
-        this.setState({
-            usage: UsageStore.getUsage()
-        });
-    },
+    // getUsage: function getUsage() {
+    //     this.setState({
+    //         // usage: UsageStore.getUsage()
+    //         usage: _.keys(UsageStore.getUsage())
+    //     });
+    // },
 
     render: function() {
+        var usage = this.state.usage.diskspace;
+
+        // console.log(this);
+        // console.log(this.state);
+        console.log(this.state.usage);
         return (
             <div>
-                <p>{this.state.usage}</p>
+                {
+                    _.keys(usage).map(function(key, index) {
+                        return (
+                            <p>{key}, {usage[key]}</p>
+                        );
+                    })
+                }
             </div>
         );
                 // <p><a href='$' onClick={this.state.getUsage.bind(this)}>get</a></p>

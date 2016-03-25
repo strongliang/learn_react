@@ -12,20 +12,20 @@ app.get('/', function handler(req, res) {
 }).listen(7777);
 
 app.get('/usage', function handler(req, res) {
-    // request(
-    //     'http://localhost:15005/api/v1/accounting',
-    //     function onResp(err, resp, body) {
-    //         if (err || resp.statusCode !== 200) {
-    //             // return callback(err);
-    //             console.log(err);
-    //         }
-    //         // console.log(body);
-    //         res.send(body);
-    //     });
-    res.send({
-        a: 1,
-        b: 2
-    });
+    request(
+        'http://localhost:15005/api/v1/accounting?human',
+        function onResp(err, resp, body) {
+            if (err || resp.statusCode !== 200) {
+                // return callback(err);
+                console.log(err);
+            }
+            // console.log(body);
+            res.send(body);
+        });
+    // res.send({
+    //     a: 11,
+    //     b: 22
+    // });
 });
 
 module.exports = app;
