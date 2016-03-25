@@ -7,7 +7,7 @@ var UsageStore = require('../stores/usage-store');
 var UsagePage = React.createClass({
     getInitialState: function getInitialState() {
         return {
-            data: UsageStore.getUsage()
+            usage: UsageStore.getUsage()
         };
 
     },
