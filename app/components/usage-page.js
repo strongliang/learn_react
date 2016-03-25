@@ -4,16 +4,14 @@
 var React = require('react');
 var _ = require('lodash');
 var UsageStore = require('../stores/usage-store');
+var UsageActions = require('../actions/usage-actions');
 
 var UsagePage = React.createClass({
     getInitialState: function getInitialState() {
-        // console.log(UsageStore.getUsage());
-        // console.log('lol', _.keys(UsageStore.getUsage()));
         var usage = UsageStore.getUsage();
         console.log('lol', _.keys(usage), _.values(usage));
         return {
             usage: usage
-            // usage: usage
         };
 
     },
@@ -28,15 +26,16 @@ var UsagePage = React.createClass({
 
     _onChange: function() {
         this.setState({ usage: UsageStore.getUsage() });
-        // this.setState({ usage: {1: 2} });
     },
 
-    // getUsage: function getUsage() {
-    //     this.setState({
-    //         // usage: UsageStore.getUsage()
-    //         usage: _.keys(UsageStore.getUsage())
-    //     });
-    // },
+    getUsage: function getUsage(event) {
+        event.preventDefault();
+        UsageActions.getUsage();
+        // this.setState({
+        //     // usage: UsageStore.getUsage()
+        //     usage: UsageStore.getUsage().diskspace
+        // });
+    },
 
     render: function() {
         var usage = this.state.usage.diskspace;
@@ -46,18 +45,21 @@ var UsagePage = React.createClass({
         console.log(this.state.usage);
         return (
             <div>
-                <table className="table--bordered table--data">
+                <div>
+                    <a href='$' onClick={this.getUsage}>refresh</a>
+                </div>
+                <table className="table table--bordered table--data">
                 <thead>
-                    <th class="one-tenth">index</th>
-                    <th class="one-sixth">usage</th>
+                    <th>index</th>
+                    <th>usage</th>
                 </thead>
                 <tbody>
                 {
                     _.keys(usage).map(function(key, index) {
                         return (
                             <tr key={key}>
-                                <td>{key}</td>
-                                <td>{usage[key]}</td>
+                                <td class="one-forth">{key}</td>
+                                <td class="one-forth">{usage[key]}</td>
                             </tr>
                         );
                     })
@@ -66,7 +68,6 @@ var UsagePage = React.createClass({
                 </table>
             </div>
         );
-                // <p><a href='$' onClick={this.state.getUsage.bind(this)}>get</a></p>
     }
 });
 
