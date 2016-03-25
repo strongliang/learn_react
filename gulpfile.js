@@ -92,7 +92,7 @@ gulp.task('watch', function() {
     watch(['dist/**']).pipe(connect.reload());
 });
 
-gulp.task('serve', function (cb) {
+gulp.task('serve', ['js'], function (cb) {
 
     var started = false;
 
