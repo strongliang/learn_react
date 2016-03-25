@@ -31,22 +31,17 @@ var UsagePage = React.createClass({
     getUsage: function getUsage(event) {
         event.preventDefault();
         UsageActions.getUsage();
-        // this.setState({
-        //     // usage: UsageStore.getUsage()
-        //     usage: UsageStore.getUsage().diskspace
-        // });
+        // toastr.success('refresh data');
     },
 
     render: function() {
         var usage = this.state.usage.diskspace;
 
-        // console.log(this);
-        // console.log(this.state);
         console.log(this.state.usage);
         return (
             <div>
                 <div>
-                    <a href='$' onClick={this.getUsage}>refresh</a>
+                    <a href='$' className='btn btn--tiny' onClick={this.getUsage}>refresh</a>
                 </div>
                 <table className="table table--bordered table--data">
                 <thead>
