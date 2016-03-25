@@ -5,6 +5,9 @@ var React = require('react');
 var _ = require('lodash');
 var UsageStore = require('../stores/usage-store');
 var UsageActions = require('../actions/usage-actions');
+// var Table = require('@uber/react-table/table');
+// var Button = require('@uber/react-button');
+// var r = require('r-dom');
 
 var UsagePage = React.createClass({
     getInitialState: function getInitialState() {
@@ -37,7 +40,6 @@ var UsagePage = React.createClass({
     render: function() {
         var usage = this.state.usage.diskspace;
 
-        console.log(this.state.usage);
         return (
             <div>
                 <div>
