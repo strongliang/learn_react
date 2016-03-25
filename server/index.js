@@ -19,13 +19,8 @@ app.get('/usage', function handler(req, res) {
                 // return callback(err);
                 console.log(err);
             }
-            // console.log(body);
             res.send(body);
         });
-    // res.send({
-    //     a: 11,
-    //     b: 22
-    // });
 });
 
 module.exports = app;

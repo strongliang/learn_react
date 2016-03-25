@@ -46,13 +46,24 @@ var UsagePage = React.createClass({
         console.log(this.state.usage);
         return (
             <div>
+                <table className="table--bordered table--data">
+                <thead>
+                    <th class="one-tenth">index</th>
+                    <th class="one-sixth">usage</th>
+                </thead>
+                <tbody>
                 {
                     _.keys(usage).map(function(key, index) {
                         return (
-                            <p>{key}, {usage[key]}</p>
+                            <tr key={key}>
+                                <td>{key}</td>
+                                <td>{usage[key]}</td>
+                            </tr>
                         );
                     })
                 }
+                </tbody>
+                </table>
             </div>
         );
                 // <p><a href='$' onClick={this.state.getUsage.bind(this)}>get</a></p>

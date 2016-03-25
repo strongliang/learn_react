@@ -8,7 +8,24 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 
 var _usage = {
-    foo: 'bar'
+    'diskspace': {
+        '__UNUSED__': '177.7 TB',
+        'es-generic': '3.2 TB',
+        'mobile-experiment': '17.7 TB',
+        'es-coreexp': '101.1 GB',
+        'fraud': '50.7 GB',
+        'es-realtime': '40.8 GB',
+        'es-expansion': '2.8 GB',
+        'mobile-treatment': '1.1 TB',
+        'lucy': '4.4 TB',
+        'dibs': '2.6 TB',
+        'mobile': '14.5 TB',
+        'growth': '283.1 kB',
+        'apilogs': '187.8 GB',
+        'eslog': '904.7 GB',
+        'vault': '113.4 GB',
+        'api-migration': '2.3 TB'
+    }
 };
 
 // take a base object (empty in this case) and glue EE into it
