@@ -77,6 +77,19 @@ var UltrafinePage = React.createClass({
                 <Button className={'push-tiny--right'} kind='primary'>Primary</Button>
                 <Button className={'push-tiny--right'} kind='primary' isArrow={true}>{'Primary with Arrow'}</Button>
                 <Button kind='primary' isInactive={true}>{'Primary Disabled'}</Button>
+
+                <p>
+                    <Button
+                        className={'push-tiny--right'}
+                        isLoading={true} preloaderType='negative'
+                        aria-label='Wait'></Button>
+                    <Button
+                        className={'push-tiny--right'} kind='secondary'
+                        isLoading={true}
+                        preloaderType={''}
+                        isInactive={true}></Button>
+                    <Button isLoading={true} preloaderType='gray' isInactive={true}></Button>
+                </p>
             </div>
         );
     }

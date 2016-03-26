@@ -11,7 +11,7 @@ var Button = React.createClass({
 
   render: function() {
     return (
-      <button onClick={this.localHandleClick}>+{this.props.increment}</button>
+      <button className="btn push-small" onClick={this.localHandleClick}>+{this.props.increment}</button>
     );
   }
 });
@@ -19,7 +19,9 @@ var Button = React.createClass({
 var Result = React.createClass({
   render: function() {
     return (
-      <div>{this.props.localCounter}</div>
+      <div>
+        <p className="mega wrapper text--center">{this.props.localCounter}</p>
+      </div>
     );
   }
 });
