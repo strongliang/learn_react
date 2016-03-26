@@ -47,8 +47,10 @@ var UsagePage = React.createClass({
                 </div>
                 <table className="table table--bordered table--data">
                 <thead>
-                    <th>index</th>
-                    <th>usage</th>
+                    <tr>
+                        <th>index</th>
+                        <th>usage</th>
+                    </tr>
                 </thead>
                 <tbody>
                 {

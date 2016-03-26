@@ -24,9 +24,11 @@ var AuthorList = React.createClass({
             <div>
                 <table className="table">
                     <thead>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th></th>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {this.props.authors.map(createAuthorRow, this)}
