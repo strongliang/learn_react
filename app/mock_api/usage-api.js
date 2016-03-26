@@ -12,7 +12,7 @@ var UsageApi = {
                     return callback(err);
                 }
                 // console.log(body);
-                console.log(JSON.parse(body));
+                // console.log(JSON.parse(body));
                 callback(null, JSON.parse(body));
             });
 

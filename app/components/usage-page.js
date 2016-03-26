@@ -55,8 +55,8 @@ var UsagePage = React.createClass({
                     _.keys(usage).map(function(key, index) {
                         return (
                             <tr key={key}>
-                                <td class="one-forth">{key}</td>
-                                <td class="one-forth">{usage[key]}</td>
+                                <td className="one-forth">{key}</td>
+                                <td className="one-forth">{usage[key]}</td>
                             </tr>
                         );
                     })
