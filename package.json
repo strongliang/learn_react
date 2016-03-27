@@ -12,6 +12,7 @@
     "@uber/react-button": "^9.1.0",
     "@uber/react-select": "^5.1.0",
     "@uber/react-table": "^4.2.0",
+    "@uber/react-tabs": "^6.2.0",
     "bootstrap": "^3.3.5",
     "browserify": "^11.0.1",
     "bytes": "^2.3.0",

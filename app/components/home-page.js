@@ -2,8 +2,32 @@
 
 var React = require('react');
 var Select = require('@uber/react-select');
+var Tabs = require('@uber/react-tabs/tabs');
+var TabsButtons = require('@uber/react-tabs/tabs-buttons');
+var StatefulTabs = require('@uber/react-tabs/stateful-tabs');
+var TabsPanel = require('@uber/react-tabs/tabs-panels');
 
 var Home = React.createClass({
+    render: function() {
+        return (
+            <div>
+              <StatefulTabs activeItem={2}>
+                <Tabs isDark={true}>
+                  <a>{'Tab Item 1'}</a>
+                  <a>{'Tab Item 2'}</a>
+                  <a>{'Tab Item 3'}</a>
+                </Tabs>
+                <TabsPanel>
+                  <div><Kopf /></div>
+                  <div><Kopf /></div>
+                  <div><Kopf /></div>
+                </TabsPanel>
+              </StatefulTabs>
+            </div>
+        );
+    }
+});
+var Kopf = React.createClass({
     getInitialState: function() {
         return {cluster: 'rtsearch_sjc1'};
     },
