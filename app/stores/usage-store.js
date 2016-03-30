@@ -45,37 +45,37 @@ var UsageStore = assign({}, EventEmitter.prototype, {
 
 Dispatcher.register(function dispatch(action) {
     switch (action.actionType) {
-        case ActionTypes.GET_USAGE:
-            _usage = action.usage;
-            UsageStore.emitChange();
-            break;
+    case ActionTypes.GET_USAGE:
+        _usage = action.usage;
+        UsageStore.emitChange();
+        break;
 
-        // case ActionTypes.CREATE_AUTHOR:
-        //     _authors.push(action.author);
-        //     UsageStore.emitChange();
-        //     break;
+    // case ActionTypes.CREATE_AUTHOR:
+    //     _authors.push(action.author);
+    //     UsageStore.emitChange();
+    //     break;
 
-        // case ActionTypes.DELETE_AUTHOR:
-        //     var deleteAuthor = _.find(_authors, {id: action.author.id});
-        //     var deleteAuthorIndex = _.indexOf(_authors, deleteAuthor);
-        //     _authors.splice(deleteAuthorIndex, 1);
-        //     UsageStore.emitChange();
-        //     break;
+    // case ActionTypes.DELETE_AUTHOR:
+    //     var deleteAuthor = _.find(_authors, {id: action.author.id});
+    //     var deleteAuthorIndex = _.indexOf(_authors, deleteAuthor);
+    //     _authors.splice(deleteAuthorIndex, 1);
+    //     UsageStore.emitChange();
+    //     break;
 
-        // case ActionTypes.UPDATE_AUTHOR:
-        //     // var existingAuthor = _.find(_authors, {id: action.author.id});
-        //     // var existingAuthorIndex = _.indexOf(_authors, existingAuthor);
-        //     // _authors.splice(existingAuthorIndex, 1, action.author);
+    // case ActionTypes.UPDATE_AUTHOR:
+    //     // var existingAuthor = _.find(_authors, {id: action.author.id});
+    //     // var existingAuthorIndex = _.indexOf(_authors, existingAuthor);
+    //     // _authors.splice(existingAuthorIndex, 1, action.author);
 
-        //     // one line is better than three above
-        //     _.remove(_authors, function(author) {
-        //         return action.id === author.id;
-        //     });
-        //     UsageStore.emitChange();
-        //     break;
+    //     // one line is better than three above
+    //     _.remove(_authors, function(author) {
+    //         return action.id === author.id;
+    //     });
+    //     UsageStore.emitChange();
+    //     break;
 
-        default:
-            // no op
+    default:
+        // no op
     }
 });
 

@@ -61,6 +61,10 @@ function parseLagData(data) {
     var mergedTopics = {};
     topics.forEach(function onElem(elem, idx) {
         var topic = elem.topic;
+        if (elem[elem.type] === null) {
+            // filter out the topics that don't have data
+            return;
+        }
         if (mergedTopics[topic] === undefined) {
             mergedTopics[topic] = {};
         }
@@ -85,10 +89,10 @@ app.get('/lag', function handler(req, res) {
             'summarize(servers.stargate01-*1.*.kafka*.*.incoming-eps, "10min", "avg")',
             'summarize(servers.stargate01-*1.*.kafka*.*.consuming-eps, "10min", "avg")'
         ],
-        from: '-1h',
+        from: '-10min',
         until: 'now',
         format: 'json',
-        maxDataPoints: 5
+        maxDataPoints: 50
     }, {
         arrayFormat: 'repeat'
     });
@@ -106,14 +110,15 @@ app.get('/lag', function handler(req, res) {
 });
 
 app.get('/logstash', function handler(req, res) {
-    var dummyData = [{
-        host: 'elkdocker01-dca1',
-        pipeline: 'chinagrowth',
-        topic: 'zen'
-    }, {
-        host: 'rtlogstash40-sjc1',
-        groupTopic: 'rttest-rt-rtapi'
-    }];
+    var dummyData = {
+        'hp-ezpzpass-views-trip_timestamp_gaps_detected': {
+            host: 'elkdocker05-sjc1',
+            pipeline: 'ezpzpass'
+        },
+        'rtsearch-rt-aarhus': {
+            host: 'rtlogstash01-sjc1'
+        }
+    };
 
     var args = qs.stringify({
         target: [
@@ -134,27 +139,30 @@ app.get('/logstash', function handler(req, res) {
             console.log(err);
             res.send(JSON.stringify(dummyData));
         } else {
-            var result = JSON.parse(body);
-            result = _.map(result, function onObj(o) {
-                var parts = o.target.split('.');
+            var resObj = {};
+            _.forEach(JSON.parse(body), function onObj(obj, idx) {
+                var parts = obj.target.split('.');
                 var host = parts[0];
+                var topic = parts[3];
                 if (_.startsWith(host, 'elkdocker')) {
-                    return {
+                    resObj[topic] = {
                         host: host,
-                        pipeline: parts[1],
-                        topic: parts[3]
+                        pipeline: parts[1]
                     };
                 } else if (_.startsWith(host, 'rtlogstash')) {
-                    return {
-                        host: host,
-                        groupTopic: parts[1].slice(
+                    // can't separate group and topic here...
+                    var groupTopic = parts[1].slice(
                             0, parts[1].length - '-BytesPerSec'.length
-                        )
+                        );
+                    resObj[groupTopic] = {
+                        host: host
                     };
+                } else {
+                    console.log(obj);
                 }
                 return parts;
             });
-            res.send(JSON.stringify(result));
+            res.send(JSON.stringify(resObj));
         }
     });
 });

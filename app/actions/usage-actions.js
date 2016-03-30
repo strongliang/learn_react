@@ -4,7 +4,7 @@ var Dispatcher = require('../dispatcher/app-dispatcher');
 var ActionTypes = require('../constants/action-types');
 var usageApi = require('../api/usage-api');
 
-var AuthorActions = {
+var UsageActions = {
     getUsage: function getUsage() {
         usageApi.getUsage(function onResp(err, data) {
             if (err) {
@@ -19,4 +19,4 @@ var AuthorActions = {
     }
 };
 
-module.exports = AuthorActions;
+module.exports = UsageActions;
