@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-// var AuthorApi = require('../mock_api/author-api');
+// var AuthorApi = require('../api/author-api');
 var AuthorList = require('./author-list');
 var Link = require('react-router').Link;
 // flux way to use author store and action

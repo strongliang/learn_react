@@ -2,7 +2,7 @@
 
 var React = require('react');
 var AuthorForm = require('./author-form');
-// var AuthorApi = require('../mock_api/author-api');  // direct API call
+// var AuthorApi = require('../api/author-api');  // direct API call
 var Router = require('react-router');
 var toastr = require('toastr');
 // flux way to use author store and action

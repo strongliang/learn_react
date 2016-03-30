@@ -66,15 +66,18 @@ function parseLagData(data) {
         }
         mergedTopics[topic] = _.merge(mergedTopics[topic], elem);
     });
-    return mergedTopics;
+    return _.values(mergedTopics);
 }
 
 app.get('/lag', function handler(req, res) {
     var dummyData = [{
-        group: 'elk-apilogs-dsc-dca1',
-        kluster: 'kafkaa',
-        topic: 'api_driver_status_change',
-        lag: 0
+        type: 'lag-ms',
+        group: 'rtsearch',
+        kluster: 'kafkab',
+        topic: 'xo_api-params-diff',
+        'consuming-eps': 0,
+        'incoming-eps': 0,
+        'lag-ms': 0
     }];
     var args = qs.stringify({
         target: [
@@ -96,7 +99,7 @@ app.get('/lag', function handler(req, res) {
             console.log(err);
             res.send(JSON.stringify(dummyData));
         } else {
-            var result = (body);
+            var result = parseLagData(JSON.parse(body));
             res.send(JSON.stringify(result));
         }
     });
@@ -104,12 +107,14 @@ app.get('/lag', function handler(req, res) {
 
 app.get('/logstash', function handler(req, res) {
     var dummyData = [{
-        'target': 'rtlogstash40-sjc1.rtsearch-rt-rtapi-BytesPerSec',
-        'tags': {},
-        'datapoints': [
-          [null, 1459292400]
-        ]
+        host: 'elkdocker01-dca1',
+        pipeline: 'chinagrowth',
+        topic: 'zen'
+    }, {
+        host: 'rtlogstash40-sjc1',
+        groupTopic: 'rttest-rt-rtapi'
     }];
+
     var args = qs.stringify({
         target: [
             'aliasByNode(servers.rtlogstash*.kafka.consumer.ConsumerTopicMetrics.*-BytesPerSec.OneMinuteRate, 1, 5)',

@@ -2,7 +2,7 @@
 
 var Dispatcher = require('../dispatcher/app-dispatcher');
 var ActionTypes = require('../constants/action-types');
-var usageApi = require('../mock_api/usage-api');
+var usageApi = require('../api/usage-api');
 
 var AuthorActions = {
     getUsage: function getUsage() {

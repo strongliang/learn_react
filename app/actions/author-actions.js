@@ -1,7 +1,7 @@
 'use strict';
 
 var Dispatcher = require('../dispatcher/app-dispatcher');
-var AuthorApi = require('../mock_api/author-api');
+var AuthorApi = require('../api/author-api');
 var ActionTypes = require('../constants/action-types');
 
 var AuthorActions = {

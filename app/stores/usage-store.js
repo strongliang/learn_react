@@ -45,10 +45,6 @@ var UsageStore = assign({}, EventEmitter.prototype, {
 
 Dispatcher.register(function dispatch(action) {
     switch (action.actionType) {
-        // case ActionTypes.INITIALIZE:
-        //     _usage = action.initialData.usage;
-        //     UsageStore.emitChange();
-        //     break;
         case ActionTypes.GET_USAGE:
             _usage = action.usage;
             UsageStore.emitChange();
