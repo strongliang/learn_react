@@ -11,8 +11,8 @@ var Home = React.createClass({
     render: function() {
         return (
             <div>
-              <StatefulTabs activeItem={2}>
-                <Tabs isDark={true}>
+              <StatefulTabs activeItem={0}>
+                <Tabs isDark={false}>
                   <a>{'Tab Item 1'}</a>
                   <a>{'Tab Item 2'}</a>
                   <a>{'Tab Item 3'}</a>
@@ -65,6 +65,22 @@ var Kopf = React.createClass({
                 </iframe>
             </div>
         );
+                // <Select id={'select-cluster'} name={'select-cluster'} label={'Select an Cluster'}>
+                //   <optgroup label='sjc1'>
+                //     <option value={'colonel-meow'}>{'Colonel Meow'}</option>
+                //     <option value={'grumpy-cat'}>{'Grumpy Cat'}</option>
+                //     <option value={'long-cat'}>{'Long Cat'}</option>
+                //   </optgroup>
+                //   <optgroup label='dca1'>
+                //     <option value='boo'>Boo</option>
+                //     <option value={'carl-the-pug'}>{'Carl the Pug'}</option>
+                //     <option value={'maru-taro'}>{'Maru Taro'}</option>
+                //   </optgroup>
+                //   <optgroup label='pek1' disabled={false}>
+                //     <option value={'deal-with-it'}>{'Deal With It'}</option>
+                //     <option value={'i-believe-i-can-fly'}>{'I Believe I Can Fly'}</option>
+                //   </optgroup>
+                // </Select>
     }
 });
 
