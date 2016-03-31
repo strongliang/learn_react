@@ -47,18 +47,19 @@ var TopicPage = React.createClass({
                     <a href='$' className='btn btn--tiny' onClick={this.refreshData}>refresh</a>
                 </div>
                 <div>
-                    <BootstrapTable className="table table--bordered table--data" data={lag} striped={true} hover={true} search={true}>
-                        <TableHeaderColumn width='200' isKey={true} dataField="topic">Topic</TableHeaderColumn>
-                        <TableHeaderColumn dataField="incoming-eps" dataSort={true}>Incoming</TableHeaderColumn>
-                        <TableHeaderColumn dataField="consuming-eps" dataSort={true}>Consuming</TableHeaderColumn>
-                        <TableHeaderColumn dataField="lag-ms" dataSort={true}>Lag</TableHeaderColumn>
-                        <TableHeaderColumn dataField="oldPipe">Old Pipeline</TableHeaderColumn>
-                        <TableHeaderColumn dataField="newPipe">New Pipeline</TableHeaderColumn>
+                    <BootstrapTable className="table table--bordered table--data" data={lag} striped={true} hover={true} columnFilter={false} search={true} pagination={false}>
+                        <TableHeaderColumn width='200' isKey={true} dataField="topic" filter={{type: "TextFilter", placeholder: "Please enter a value"}}>Topic</TableHeaderColumn>
+                        <TableHeaderColumn dataField="incoming-eps" dataSort={true} filter={{type: "NumberFilter", delay: 100}}>Incoming</TableHeaderColumn>
+                        <TableHeaderColumn dataField="consuming-eps" dataSort={true} filter={{type: "NumberFilter", delay: 100}}>Consuming</TableHeaderColumn>
+                        <TableHeaderColumn dataField="lag-ms" dataSort={true} filter={{type: "NumberFilter", delay: 100}}>Lag</TableHeaderColumn>
+                        <TableHeaderColumn dataField="oldPipe" dataSort={true}>Old Pipeline</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField="newPipe" dataSort={true}>New Pipeline</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField="group">Group</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField="kluster">Kluster</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
             </div>
         );
-                        // <TableHeaderColumn dataField="group">Group</TableHeaderColumn>
     }
 });
 

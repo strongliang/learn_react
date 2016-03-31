@@ -70,6 +70,8 @@ function parseLagData(data) {
         }
         mergedTopics[topic] = _.merge(mergedTopics[topic], elem);
     });
+    // TODO: better just return the object and get the values in the front end
+    // keyed objects are easier to handle as raw data
     return _.values(mergedTopics);
 }
 
@@ -125,7 +127,7 @@ app.get('/logstash', function handler(req, res) {
             'aliasByNode(servers.rtlogstash*.kafka.consumer.ConsumerTopicMetrics.*-BytesPerSec.OneMinuteRate, 1, 5)',
             'aliasByNode(servers.elkdocker*.logstash.*.kafka.consumer.ConsumerTopicMetrics.BytesPerSec.*.*.OneMinuteRate, 1, 3, 8, 9)'
         ],
-        from: '-1h',
+        from: '-12h',
         until: 'now',
         format: 'json',
         maxDataPoints: 1
