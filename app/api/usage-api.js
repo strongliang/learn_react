@@ -5,7 +5,7 @@ var request = require('request');
 var UsageApi = {
     getUsage: function getUsage(callback) {
         request(
-            'http://localhost:7777/usage',
+            window.location.origin + '/usage',
             function onResp(err, resp, body) {
                 if (err || resp.statusCode !== 200) {
                     return callback(err);

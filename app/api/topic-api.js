@@ -5,7 +5,7 @@ var request = require('request');
 var TopicApi = {
     getLagData: function getLagData(callback) {
         request(
-            'http://localhost:7777/lag',
+            window.location.origin + '/lag',
             function onResp(err, resp, body) {
                 if (err || resp.statusCode !== 200) {
                     return callback(err);
@@ -15,7 +15,7 @@ var TopicApi = {
     },
     getPipeline: function getPipeline(callback) {
         request(
-            'http://localhost:7777/logstash',
+            window.location.origin + '/logstash',
             function onResp(err, resp, body) {
                 if (err || resp.statusCode !== 200) {
                     return callback(err);
