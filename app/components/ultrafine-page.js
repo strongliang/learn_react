@@ -11,6 +11,8 @@ var Button = require('@uber/react-button');
 var ReactBsTable = require("react-bootstrap-table");
 var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+var Modal = require('@uber/react-modal/modal');
+var ModalDialog = require('@uber/react-modal/modal-dialog');
 
 // products will be presented by ReactBsTable
 var products = [
@@ -46,7 +48,8 @@ var UltrafinePage = React.createClass({
         var usage = UsageStore.getUsage();
         console.log('lol', _.keys(usage), _.values(usage));
         return {
-            usage: usage
+            usage: usage,
+            isVisible: false
         };
 
     },
@@ -68,7 +71,8 @@ var UltrafinePage = React.createClass({
         UsageActions.getUsage();
         // toastr.success('refresh data');
     },
-
+    openModal: function() {this.setState({ isVisible: true }); },
+    closeModal: function() {this.setState({ isVisible: false }); },
     render: function() {
         var usage = this.state.usage.diskspace;
 
@@ -128,6 +132,13 @@ var UltrafinePage = React.createClass({
                         <TableHeaderColumn dataField="name" dataSort={true}>Product Name</TableHeaderColumn>
                         <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
                     </BootstrapTable>
+                </div>
+                <div className={'soft-huge--bottom'}>
+                  <Button kind='primary' onClick={this.openModal}>Modal</Button>
+                  <Modal isOpen={this.state.isVisible} close={this.closeModal}>
+                    <div>{'Modal content goes here'}</div>
+                    <div className={'text--center soft--top'}></div>
+                  </Modal>
                 </div>
             </div>
         );
