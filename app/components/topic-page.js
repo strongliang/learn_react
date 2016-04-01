@@ -11,16 +11,21 @@ var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 var Modal = require('@uber/react-modal/modal');
 var ModalDialog = require('@uber/react-modal/modal-dialog');
+var Layout = require('@uber/react-layout/layout');
+var LayoutItem = require('@uber/react-layout/layout-item');
+var TextInput = require('@uber/react-text-input');
+var Button = require('@uber/react-button');
 
 var TopicPage = React.createClass({
     getInitialState: function getInitialState() {
         var lag = TopicStore.getData();
-        // console.log('lol', _.keys(usage), _.values(usage));
         return {
             lag: lag,
-            isVisible: false
+            isVisible: false,
+            row: {
+                topic: 'foo bar'
+            }
         };
-
     },
 
     componentWillMount: function() {
@@ -39,25 +44,12 @@ var TopicPage = React.createClass({
         event.preventDefault();
         TopicActions.getLagData();
         TopicActions.getPipeline();
-        // var fakeRow = {
-        //     type: 'lag-ms',
-        //     group: 'rtsearch',
-        //     kluster: 'kafkab',
-        //     topic: 'aaa',
-        //     'consuming-eps': 0,
-        //     'incoming-eps': 0,
-        //     'lag-ms': 0
-        // };
-        // // insert a new row
-        // var result = this.refs.table.handleAddRow(fakeRow);
-        // if(result){  //some error happen, ex: doesn't assign row key or row key duplicated
-        //       console.log(result);
-        // }
     },
     onRowClick: function onRowClick(row) {
         console.log('you just clicked on row', row);
         this.setState({
-            isVisible: true
+            isVisible: true,
+            row: row
         });
     },
     closeModal: function closeModal() {
@@ -74,6 +66,10 @@ var TopicPage = React.createClass({
         function onSelectAll(isSelected){
           console.log("is select all: " + isSelected);
         }
+
+        function numberFormatter(cell, row) {
+            return Math.round(cell);
+        }
         var selectRowProp = {
           mode: "checkbox",
           clickToSelect: false,
@@ -89,29 +85,46 @@ var TopicPage = React.createClass({
         var lag = this.state.lag;
 
           // <Button kind='primary' onClick={() => this.setState({ isVisible: true })}>Modal</Button>
+                      // <LayoutItem size='oneHalf' palm='oneWhole'>
+                      //   <TextInput label={'First Name'} placeholder='Jane' id={'first-name'}></TextInput>
+                      // </LayoutItem>
+                      // <LayoutItem size='oneHalf' palm='oneWhole'>
+                      //   <TextInput label={'Last Name'} placeholder='Doe' id={'last-name'}></TextInput>
+                      // </LayoutItem>
+                // <div className={'soft-huge--bottom'}>
         return (
             <div>
                 <div>
                     <a href='$' className='btn' onClick={this.refreshData}>refresh</a>
                 </div>
-                <div className={'soft-huge--bottom'}>
-                    <Modal isOpen={this.state.isVisible} close={this.closeModal}>
-                        <div>{'Modal content goes here'}</div>
-                        <div className={'text--center soft--top'}></div>
-                    </Modal>
+                <div>
+                    <ModalDialog title={this.state.row.topic} isOpen={this.state.isVisible} close={this.closeModal}>
+                        <p></p>
+                        <Layout>
+                            <LayoutItem size='oneWhole'>
+                                <TextInput label='BlackholeAmount' placeholder={'10%'} id='blackholeAmount'></TextInput>
+                            </LayoutItem>
+                        </Layout>
+                        <Button className={'push-small--top'} kind='primary' isFull={true}>Start Black Hole</Button>
+                    </ModalDialog>
                 </div>
                 <div>
                     <BootstrapTable className="table table--bordered table--data" data={lag} selectRow={selectRowProp}
                                     striped={true} hover={true} columnFilter={false} search={true} pagination={false}
                                     options={options} condensed={true} exportCSV={false}>
-                        <TableHeaderColumn width='200' isKey={true} dataField="topic" filter={{type: "TextFilter", placeholder: ""}}>
-                            Topic</TableHeaderColumn>
-                        <TableHeaderColumn dataField="incoming-eps" dataSort={true} filter={{type: "NumberFilter", delay: 100}}>
-                            Incoming</TableHeaderColumn>
-                        <TableHeaderColumn dataField="consuming-eps" dataSort={true} filter={{type: "NumberFilter", delay: 100}}>
-                            Consuming</TableHeaderColumn>
-                        <TableHeaderColumn dataField="lag-ms" dataSort={true} filter={{type: "NumberFilter", delay: 100}}>
-                            Lag</TableHeaderColumn>
+
+                        <TableHeaderColumn width='200' isKey={true} dataField="topic"
+                                           filter={{type: "TextFilter", placeholder: ""}}>Topic</TableHeaderColumn>
+
+                        <TableHeaderColumn dataField="incoming-eps" dataSort={true} dataFormat={numberFormatter}
+                                           filter={{type: "NumberFilter", delay: 100}}>Incoming</TableHeaderColumn>
+
+                        <TableHeaderColumn dataField="consuming-eps" dataSort={true} dataFormat={numberFormatter}
+                                           filter={{type: "NumberFilter", delay: 100}}>Consuming</TableHeaderColumn>
+
+                        <TableHeaderColumn dataField="lag-ms" dataSort={true} dataFormat={numberFormatter}
+                                           filter={{type: "NumberFilter", delay: 100}}>Lag</TableHeaderColumn>
+
                         <TableHeaderColumn dataField="oldPipe" dataSort={true}>Old Pipeline</TableHeaderColumn>
                         <TableHeaderColumn width='100' dataField="newPipe" dataSort={true}>New Pipeline</TableHeaderColumn>
                         <TableHeaderColumn width='100' dataField="group">Group</TableHeaderColumn>

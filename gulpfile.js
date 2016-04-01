@@ -21,7 +21,9 @@ var config = {
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
-            'node_modules/toastr/toastr.css'
+            'node_modules/toastr/toastr.css',
+            'app/css/superfine-fonts.css',
+            'app/css/superfine-styles.css'
         ],
         dist: './dist',
         // mainJs: './app/main.js'
@@ -89,6 +91,7 @@ gulp.task('lint', function() {
 var started = false;
 gulp.task('watch', function() {
     gulp.watch(config.paths.html, ['html']);
+    gulp.watch(config.paths.css, ['css']);
     gulp.watch(config.paths.js, ['js', 'lint']);
     // gulp.watch(config.paths.serverJs, ['serve'])
     // watch(['dist/**']).pipe(connect.reload());
