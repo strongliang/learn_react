@@ -10,6 +10,7 @@ var _lag = [{
     type: 'lag-ms',
     group: 'rtsearch',
     kluster: 'kafkab',
+    dc: 'sjc1',
     topic: 'xo_api-params-diff',
     'consuming-eps': 0,
     'incoming-eps': 0,

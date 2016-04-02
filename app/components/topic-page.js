@@ -98,8 +98,8 @@ var TopicPage = React.createClass({
                     <a href='$' className='btn' onClick={this.refreshData}>refresh</a>
                 </div>
                 <div>
-                    <ModalDialog title={this.state.row.topic} isOpen={this.state.isVisible} close={this.closeModal}>
-                        <p></p>
+                    <ModalDialog isOpen={this.state.isVisible} close={this.closeModal}>
+                        <p className='zeta'>{this.state.row.topic}</p>
                         <Layout>
                             <LayoutItem size='oneWhole'>
                                 <TextInput label='BlackholeAmount' placeholder={'10%'} id='blackholeAmount'></TextInput>
@@ -125,10 +125,11 @@ var TopicPage = React.createClass({
                         <TableHeaderColumn dataField="lag-ms" dataSort={true} dataFormat={numberFormatter}
                                            filter={{type: "NumberFilter", delay: 100}}>Lag</TableHeaderColumn>
 
-                        <TableHeaderColumn dataField="oldPipe" dataSort={true}>Old Pipeline</TableHeaderColumn>
+                        <TableHeaderColumn width='150' dataField="oldPipe" dataSort={true}>Old Pipeline</TableHeaderColumn>
                         <TableHeaderColumn width='100' dataField="newPipe" dataSort={true}>New Pipeline</TableHeaderColumn>
-                        <TableHeaderColumn width='100' dataField="group">Group</TableHeaderColumn>
+                        <TableHeaderColumn width='200' dataField="group">Group</TableHeaderColumn>
                         <TableHeaderColumn width='100' dataField="kluster">Kluster</TableHeaderColumn>
+                        <TableHeaderColumn width='100' dataField="dc">Datacenter</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
             </div>

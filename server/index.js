@@ -5,6 +5,7 @@ var express = require('express');
 var request = require('request');
 var qs = require('qs');
 var _ = require('lodash');
+var zookeeper = require('node-zookeeper-client');
 
 var app = express();
 app.use(express.static(path.join(__dirname, '..', 'dist')));
@@ -38,17 +39,21 @@ app.get('/usage', function handler(req, res) {
 });
 
 function parseLagData(data) {
+    // FIXME: some fields should be array insteads of a single value
+    // the solution is to use an object to build them up, instead of
+    // doing just a map
     var topics = _.map(data, function onObj(o) {
         var info = _.slice(
             o.target.match(/\S+\((\S+), \S+, \S+\)/)[1].split('.'),
-            2, 6
+            1, 6
         );
-        var type = info[3];
+        var type = info[4];
         var res = {
             type: type,
-            group: info[0],
-            kluster: info[1],
-            topic: info[2]
+            group: info[1],
+            kluster: info[2],
+            topic: info[3],
+            dc: info[0].split('-')[1]
         };
         res[type] = _.reduce(
             _.map(o.datapoints, function onArr(arr) {
@@ -80,6 +85,7 @@ app.get('/lag', function handler(req, res) {
         type: 'lag-ms',
         group: 'rtsearch',
         kluster: 'kafkab',
+        dc: 'sjc1',
         topic: 'xo_api-params-diff',
         'consuming-eps': 0,
         'incoming-eps': 0,
@@ -87,9 +93,9 @@ app.get('/lag', function handler(req, res) {
     }];
     var args = qs.stringify({
         target: [
-            'summarize(servers.stargate01-*1.*.kafka*.*.lag-ms, "10min", "avg")',
-            'summarize(servers.stargate01-*1.*.kafka*.*.incoming-eps, "10min", "avg")',
-            'summarize(servers.stargate01-*1.*.kafka*.*.consuming-eps, "10min", "avg")'
+            'summarize(servers.stargate01-*.*.kafka*.*.lag-ms, "10min", "avg")',
+            'summarize(servers.stargate01-*.*.kafka*.*.incoming-eps, "10min", "avg")',
+            'summarize(servers.stargate01-*.*.kafka*.*.consuming-eps, "10min", "avg")'
         ],
         from: '-10min',
         until: 'now',
@@ -105,10 +111,48 @@ app.get('/lag', function handler(req, res) {
             console.log(err);
             res.send(JSON.stringify(dummyData));
         } else {
+            // console.log(JSON.parse(body));
             var result = parseLagData(JSON.parse(body));
+            // console.log(result);
             res.send(JSON.stringify(result));
         }
     });
+});
+
+app.get('/zk', function handler(req, res) {
+    // var zkclient = zookeeper.createClient(
+    //     'kloakzk01-sjc1,kloakzk02-sjc1/kloak-sjc1a'
+    // );
+    // var zkpath = req.args.zkpath;
+    // function listChildren(client, path) {
+    //     client.getChildren(
+    //         path,
+    //         function (event) {
+    //             console.log('Got watcher event: %s', event);
+    //             listChildren(client, path);
+    //         },
+    //         function (error, children, stat) {
+    //             if (error) {
+    //                 console.log(
+    //                     'Failed to list children of %s due to: %s.',
+    //                     path,
+    //                     error
+    //                 );
+    //                 return;
+    //             }
+
+    //             console.log('Children of %s are: %j.', path, children);
+    //             zkclient.close();
+    //         }
+    //     );
+    // }
+
+    // zkclient.once('connected', function () {
+    //     console.log('Connected to ZooKeeper.');
+    //     listChildren(zkclient, zkpath);
+    // });
+
+    // zkclient.connect();
 });
 
 app.get('/logstash', function handler(req, res) {

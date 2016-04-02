@@ -30,6 +30,7 @@
     "gulp-open": "^1.0.0",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
+    "node-zookeeper-client": "^0.2.2",
     "object-assign": "^4.0.1",
     "qs": "^6.1.0",
     "r-dom": "^2.1.0",
