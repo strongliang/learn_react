@@ -121,7 +121,7 @@ app.get('/lag', function handler(req, res) {
 
 app.get('/offset', function handler(req, res) {
     var dummyData = 'Group           Topic                          Pid Offset          logSize         Lag             Owner\n' +
-                    'rtsearch        rt-udestroy-master             0   2009241         2009241         0               rtsearch_elkdocker01-sjc1-1459190289156-c7c42c3b-0\n';
+                    'rtsearch        nodata-placeholder             0   2009241         2009241         0               rtsearch_elkdocker01-sjc1-1459190289156-c7c42c3b-0\n';
     request({
         uri: 'http://localhost:5678/offset?' + qs.stringify({
             topic: req.query.topic // FIXME: can't do this yet

@@ -1,11 +1,12 @@
 // usage page controller
 'use strict';
 
+var bytes = require('bytes');
+var request = require('request');
 var React = require('react');
 var _ = require('lodash');
 var TopicStore = require('../stores/topic-store');
 var TopicActions = require('../actions/topic-actions');
-var bytes = require('bytes');
 var ReactBsTable = require("react-bootstrap-table");
 var BootstrapTable = ReactBsTable.BootstrapTable;
 var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
@@ -24,7 +25,8 @@ var TopicPage = React.createClass({
             isVisible: false,
             row: {
                 topic: 'foo bar'
-            }
+            },
+            offset: ''
         };
     },
 
@@ -45,8 +47,20 @@ var TopicPage = React.createClass({
         TopicActions.getLagData();
         TopicActions.getPipeline();
     },
+    getOffset: function getOffset(topic) {
+        var self = this;
+        request({
+            uri: 'http://localhost:7777/offset?topic=geobase'
+        }, function onResp(err, resp, body) {
+            console.log(err, resp, body);
+            self.setState({
+                offset: body
+            });
+        });
+    },
     onRowClick: function onRowClick(row) {
         console.log('you just clicked on row', row);
+        this.getOffset();
         this.setState({
             isVisible: true,
             row: row
@@ -103,6 +117,7 @@ var TopicPage = React.createClass({
                         <Layout>
                             <LayoutItem size='oneWhole'>
                                 <TextInput label='BlackholeAmount' placeholder={'10%'} id='blackholeAmount'></TextInput>
+                                <pre>{this.state.offset}</pre>
                             </LayoutItem>
                         </Layout>
                         <Button className={'push-small--top'} kind='primary' isFull={true}>Start Black Hole</Button>
