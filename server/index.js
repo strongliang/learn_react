@@ -5,7 +5,7 @@ var express = require('express');
 var request = require('request');
 var qs = require('qs');
 var _ = require('lodash');
-var zookeeper = require('node-zookeeper-client');
+// var zookeeper = require('node-zookeeper-client');
 
 var app = express();
 app.use(express.static(path.join(__dirname, '..', 'dist')));
@@ -119,6 +119,25 @@ app.get('/lag', function handler(req, res) {
     });
 });
 
+app.get('/offset', function handler(req, res) {
+    var dummyData = 'Group           Topic                          Pid Offset          logSize         Lag             Owner\n' +
+                    'rtsearch        rt-udestroy-master             0   2009241         2009241         0               rtsearch_elkdocker01-sjc1-1459190289156-c7c42c3b-0\n';
+    request({
+        uri: 'http://localhost:5678/offset?' + qs.stringify({
+            topic: req.query.topic // FIXME: can't do this yet
+        })
+    }, function onResp(err, resp, body) {
+        if (err || resp.statusCode !== 200) {
+            console.log(err);
+            res.send(dummyData);
+        } else {
+            // console.log(JSON.parse(body));
+            // var result = parseLagData(JSON.parse(body));
+            // console.log(result);
+            res.send(body);
+        }
+    });
+});
 app.get('/zk', function handler(req, res) {
     // var zkclient = zookeeper.createClient(
     //     'kloakzk01-sjc1,kloakzk02-sjc1/kloak-sjc1a'

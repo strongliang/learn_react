@@ -126,17 +126,24 @@ var UltrafinePage = React.createClass({
                         isInactive={true}></Button>
                     <Button isLoading={true} preloaderType='gray' isInactive={true}></Button>
                 </p>
-                <div>
-                    <BootstrapTable data={products} striped={true} hover={true} search={true}>
-                        <TableHeaderColumn isKey={true} dataField="id" dataSort={true}>Product ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField="name" dataSort={true}>Product Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
-                    </BootstrapTable>
-                </div>
-                <div className={'soft-huge--bottom'}>
+
+                <div className={'soft-small--bottom'}>
                   <Button kind='primary' onClick={this.openModal}>Modal</Button>
                   <Modal isOpen={this.state.isVisible} close={this.closeModal}>
                     <div>{'Modal content goes here'}</div>
+                    <div>
+                        <BootstrapTable data={products} striped={true} hover={true} search={true}>
+                            <TableHeaderColumn isKey={true} dataField="id" dataSort={true}>Product ID</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataSort={true}>Product Name</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true}>Product Price</TableHeaderColumn>
+                        </BootstrapTable>
+                    </div>
                     <div className={'text--center soft--top'}></div>
                   </Modal>
                 </div>
