@@ -5,7 +5,6 @@ var express = require('express');
 var request = require('request');
 var qs = require('qs');
 var _ = require('lodash');
-// var zookeeper = require('node-zookeeper-client');
 
 var app = express();
 app.use(express.static(path.join(__dirname, '..', 'dist')));
@@ -138,40 +137,16 @@ app.get('/offset', function handler(req, res) {
         }
     });
 });
-app.get('/zk', function handler(req, res) {
-    // var zkclient = zookeeper.createClient(
-    //     'kloakzk01-sjc1,kloakzk02-sjc1/kloak-sjc1a'
-    // );
-    // var zkpath = req.args.zkpath;
-    // function listChildren(client, path) {
-    //     client.getChildren(
-    //         path,
-    //         function (event) {
-    //             console.log('Got watcher event: %s', event);
-    //             listChildren(client, path);
-    //         },
-    //         function (error, children, stat) {
-    //             if (error) {
-    //                 console.log(
-    //                     'Failed to list children of %s due to: %s.',
-    //                     path,
-    //                     error
-    //                 );
-    //                 return;
-    //             }
-
-    //             console.log('Children of %s are: %j.', path, children);
-    //             zkclient.close();
-    //         }
-    //     );
-    // }
-
-    // zkclient.once('connected', function () {
-    //     console.log('Connected to ZooKeeper.');
-    //     listChildren(zkclient, zkpath);
-    // });
-
-    // zkclient.connect();
+app.get('/topic-map', function handler(req, res) {
+    request({
+        uri: 'http://localhost:5678/topic-map'
+    }, function onResp(err, resp, body) {
+        if (err || resp.statusCode !== 200) {
+            console.log(err);
+        } else {
+            res.send(body);
+        }
+    });
 });
 
 app.get('/logstash', function handler(req, res) {

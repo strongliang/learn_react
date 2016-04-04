@@ -8,5 +8,6 @@ module.exports = {
 
     GET_USAGE: 'GET_USAGE',
     GET_LAG_DATA: 'GET_LAG_DATA',
+    GET_TOPIC_MAP: 'GET_TOPIC_MAP',
     GET_PIPELINE: 'GET_PIPELINE'
 };

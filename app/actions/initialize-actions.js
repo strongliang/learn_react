@@ -33,6 +33,15 @@ var InitializeActions = {
                         lagData: data
                     });
                 }),
+                topicMap: TopicApi.getTopicMap(function onResp(err, data) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    Dispatcher.dispatch({
+                        actionType: ActionTypes.GET_TOPIC_MAP,
+                        topicMap: data
+                    });
+                }),
                 pipeline: TopicApi.getPipeline(function onResp(err, data) {
                     if (err) {
                         console.log(err);

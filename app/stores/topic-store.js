@@ -5,6 +5,8 @@ var ActionTypes = require('../constants/action-types');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
+// var fs = require('fs');
+// var defaultTopicMap = require('./default-topic-map.json');
 
 var _lag = [{
     type: 'lag-ms',
@@ -27,8 +29,13 @@ var _pipeline = {
     }
 };
 
+// var _topicMap = JSON.parse(defaultTopicMap);
+var _topicMap = {
+    foo: 'bar'
+};
+
 // take a base object (empty in this case) and glue EE into it
-var UsageStore = assign({}, EventEmitter.prototype, {
+var TopicStore = assign({}, EventEmitter.prototype, {
     addChangeListener: function listener(callback) {
         this.on(CHANGE_EVENT, callback);
     },
@@ -43,6 +50,10 @@ var UsageStore = assign({}, EventEmitter.prototype, {
 
     getLagData: function getLagData() {
         return _lag;
+    },
+
+    getTopicMap: function getTopicMap() {
+        return _topicMap;
     },
 
     getPipeline: function getPipeline() {
@@ -66,17 +77,21 @@ Dispatcher.register(function dispatch(action) {
     switch (action.actionType) {
     case ActionTypes.GET_LAG_DATA:
         _lag = action.lagData;
-        UsageStore.emitChange();
+        TopicStore.emitChange();
         break;
 
     case ActionTypes.GET_PIPELINE:
         _pipeline = action.pipeline;
-        UsageStore.emitChange();
+        TopicStore.emitChange();
         break;
 
+    case ActionTypes.GET_TOPIC_MAP:
+        _topicMap = action.topicMap;
+        TopicStore.emitChange();
+        break;
     default:
         // no op
     }
 });
 
-module.exports = UsageStore;
+module.exports = TopicStore;

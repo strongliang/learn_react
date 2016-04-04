@@ -20,13 +20,15 @@ var Button = require('@uber/react-button');
 var TopicPage = React.createClass({
     getInitialState: function getInitialState() {
         var lag = TopicStore.getData();
+        var topicMap = TopicStore.getTopicMap();
         return {
             lag: lag,
             isVisible: false,
             row: {
                 topic: 'foo bar'
             },
-            offset: ''
+            offset: '',
+            topicMap: topicMap
         };
     },
 
@@ -39,7 +41,10 @@ var TopicPage = React.createClass({
     },
 
     _onChange: function() {
-        this.setState({ lag: TopicStore.getData() });
+        this.setState({
+            lag: TopicStore.getData(),
+            topicMap: TopicStore.getTopicMap()
+        });
     },
 
     refreshData: function refreshData(event) {
@@ -49,8 +54,13 @@ var TopicPage = React.createClass({
     },
     getOffset: function getOffset(topic) {
         var self = this;
+        self.setState({
+            offset: ''
+        });
+        // console.log(this.state.topicMap);
+        // console.log(this.state.topicMap.topic);
         request({
-            uri: 'http://localhost:7777/offset?topic=geobase'
+            uri: 'http://localhost:7777/offset?topic=' + this.state.topicMap[topic] || 'geobase'
         }, function onResp(err, resp, body) {
             console.log(err, resp, body);
             self.setState({
@@ -60,7 +70,7 @@ var TopicPage = React.createClass({
     },
     onRowClick: function onRowClick(row) {
         console.log('you just clicked on row', row);
-        this.getOffset();
+        this.getOffset(row.topic);
         this.setState({
             isVisible: true,
             row: row
@@ -117,7 +127,7 @@ var TopicPage = React.createClass({
                         <Layout>
                             <LayoutItem size='oneWhole'>
                                 <TextInput label='BlackholeAmount' placeholder={'10%'} id='blackholeAmount'></TextInput>
-                                <pre>{this.state.offset}</pre>
+                                <pre className='code small'>{this.state.offset}</pre>
                             </LayoutItem>
                         </Layout>
                         <Button className={'push-small--top'} kind='primary' isFull={true}>Start Black Hole</Button>
